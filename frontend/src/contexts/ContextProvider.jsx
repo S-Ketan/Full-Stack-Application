@@ -8,19 +8,20 @@ const stateContext = createContext({
 });
 
 export const ContextProvider = ({ children }) => {
-  const [user, setUser] = useState({});
-  const [token, _setToken] = useState('hello' );
+  const [user, setUser] = useState({
+    name:'Ketan',
+  });
+  const [token, _setToken] = useState();
 
   const setToken = (token) => {
     _setToken(token);
     if (token) {
-      localStorage.setItem("token", token);
+      localStorage.setItem("AccessToken", token);
     } else {
-      localStorage.removeItem("token");
+      localStorage.removeItem("AccessToken");
     }
   };
 
-  // ✅ Must RETURN JSX and use 'value'
   return (
     <stateContext.Provider value={{ user, setUser, token, setToken }}>
       {children}

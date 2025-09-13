@@ -4,11 +4,14 @@ import { useStateContext } from "../contexts/ContextProvider";
 
 const DefaultLayout = () => {
     const { user, token } = useStateContext();
+    const onLogout=(e)=>{
+        e.preventDefault();
+    }
 
     if (!token) {
         return <Navigate to="/login" />;
     }
-
+    console.log("DefaultLayout token:", token); // Debugging line
     return (
         <div>
             <div className="flex w-full h-full">
@@ -17,13 +20,13 @@ const DefaultLayout = () => {
                         <div className="flex flex-col gap-4 p-4 text-xl  mt-4 text-white">
                             <Link
                                 to="/dashboard"
-                                className="p-2 shadow-2xl border-b-2 border-r-2 border-gray-400"
+                                className="p-2 shadow-2xl bg-purple-700 "
                             >
                                 Dashboard
                             </Link>
                             <Link
                                 to="/users"
-                                className="p-2 shadow-2xl border-b-2 border-r-2 border-gray-400"
+                                className="p-2 shadow-2xl bg-purple-700 "
                             >
                                 Users
                             </Link>
@@ -32,9 +35,12 @@ const DefaultLayout = () => {
                 </div>
                 <div className="bg-gray-100 w-full h-[100vh]">
                     <header>
-                        <div className="bg-white w-full h-[15vh] shadow-2xl flex justify-between items-center px-8">
+                        <div className="bg-white w-full h-[15vh] shadow-2xs flex justify-between items-center px-8">
                             <p>Header</p>
-                            <p>User Info</p>
+                            <div className="flex gap-4 items-center">
+                                <p>{user.name}</p>
+                                <button onClick={onLogout} className="cursor-pointer">Logout</button>
+                            </div>
                         </div>
                     </header>
                     <main>
