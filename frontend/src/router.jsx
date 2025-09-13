@@ -9,39 +9,38 @@ import GuestLayout from "./Components/GuestLayout";
 import Dashboard from "./views/Dashboard";
 
 const router = createBrowserRouter([
-    {
-        path: "/",
-        element: <DefaultLayout />,
-        children: [
-            {
-                path: "/users",
-                element: <Users />,
-            },
-            {
-                path: "/dashboard",
-                element:<Dashboard />,
-            }
-        ],
-    },
-    {
-        path: "/",
-        element: <GuestLayout />,
-        children: [
-            {
-                path: "/login",
-                element: <Login />,
-            },
-            {
-                path: "/signup",
-                element: <Signup />,
-            },
-        ],
-    },
-
-    {
-        path: "*",
-        element: <NotFound />,
-    },
+  {
+    path: "/",
+    element: <DefaultLayout />,   // For logged-in users
+    children: [
+      {
+        path: "users",    // no need for leading slash inside children
+        element: <Users />,
+      },
+      {
+        path: "dashboard",
+        element: <Dashboard />,
+      },
+    ],
+  },
+  {
+    path: "/",
+    element: <GuestLayout />,   // For guests
+    children: [
+      {
+        path: "login",
+        element: <Login />,
+      },
+      {
+        path: "signup",
+        element: <Signup />,
+      },
+    ],
+  },
+  {
+    path: "*",
+    element: <NotFound />,
+  },
 ]);
 
 export default router;
