@@ -6,11 +6,11 @@ const Login = () => {
         e.preventDefault();
     };
     return (
-        <form action="post">
+        <form>
             <h1 className="text-center text-2xl">Login to your account</h1>
             <div className="flex flex-col gap-3 mt-4">
                 <input
-                    type="text"
+                    type="email"
                     placeholder="Email"
                     className="border-2 border-black p-2 w-[22vw]"
                 />
