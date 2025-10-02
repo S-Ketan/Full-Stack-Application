@@ -1,21 +1,23 @@
 import axios from "axios";
 
 const axiosClient = axios.create({
-    baseURL: `${import.meta.env.BASE_URL_API}/api`,
+    baseURL: `
+http://127.0.0.1:8000/api`,
 });
 
 axiosClient.interceptors.request.use(
     (config) => {
         const token = localStorage.getItem("token");
-        config.headers.Authorization = `Bearer ${token}`;
+        if (token) {
+            config.headers.Authorization = `Bearer ${token}`;
+        }
         return config;
     },
     (error) => Promise.reject(error)
 );
+
 axiosClient.interceptors.response.use(
-    (res) => {
-        return res.data;
-    },
+    (res) => res.data,
     (err) => {
         if (err.response?.status === 401) {
             localStorage.removeItem("token");
