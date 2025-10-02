@@ -12,23 +12,24 @@ const Signup = () => {
     const { setUser, setToken } = useStateContext();
     const onSubmit = (e) => {
         e.preventDefault();
-        axiosClient.post("/signup", formData).then(({data})=>{
-            setUser(data.user);
-            setToken(data.token);
-        }).catch((err)=>{
-            const response =err.response;
-            if(response&& response.status===422){
-                console.log(response.data.errors);
-            }
-        })
+        axiosClient
+            .post("/signup", formData)
+            .then(({ data }) => {
+                setUser(data.user);
+                setToken(data.token);
+            })
+            .catch((err) => {
+                const response = err.response;
+                if (response && response.status === 422) {
+                    console.log(response.data.errors);
+                }
+            });
         console.log(formData);
     };
 
     const onChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
-
-    axiosClient.pos;
 
     return (
         <form onSubmit={onSubmit}>
