@@ -4,10 +4,10 @@ import axiosClient from "../axios-client";
 import { useStateContext } from "../contexts/ContextProvider";
 const Signup = () => {
     const [formData, setFormData] = useState({
-        fullname: "",
+        name: "",
         email: "",
         password: "",
-        passwordConfirmation: "",
+        password_confirmation: "",
     });
     const { setUser, setToken } = useStateContext();
     const onSubmit = (e) => {
@@ -37,11 +37,11 @@ const Signup = () => {
             <div className="flex flex-col gap-3 mt-4">
                 <input
                     type="text"
-                    name="fullname"
+                    name="name"
                     placeholder="FullName"
                     className="border-2 border-black p-2 w-[22vw]"
                     onChange={onChange}
-                    value={formData.fullname}
+                    value={formData.name}
                 />
                 <input
                     type="email"
@@ -62,11 +62,11 @@ const Signup = () => {
                 />
                 <input
                     type="password"
-                    name="passwordConfirmation"
+                    name="password_confirmation"
                     placeholder="Password Confirmation"
                     className="border-2 border-black p-2"
                     onChange={onChange}
-                    value={formData.passwordConfirmation}
+                    value={formData.password_confirmation}
                 />
 
                 <button
