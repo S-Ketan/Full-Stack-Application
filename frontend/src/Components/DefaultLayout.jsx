@@ -4,9 +4,13 @@ import { useStateContext } from "../contexts/ContextProvider";
 import axiosClient from "../axios-client";
 
 const DefaultLayout = () => {
-    const { user, token ,setUser} = useStateContext();
+    const { user, token ,setUser, setToken} = useStateContext();
     const onLogout = (e) => {
         e.preventDefault();
+        axiosClient.post('/logout').then(()=>{
+            setUser({});
+            setToken(null);
+        })
     };
 
     if (!token) {
