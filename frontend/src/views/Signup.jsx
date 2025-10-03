@@ -14,7 +14,7 @@ const Signup = () => {
         e.preventDefault();
         axiosClient
             .post("/signup", formData)
-            .then(({ data }) => {
+            .then((data) => {
                 setUser(data.user);
                 setToken(data.token);
             })
@@ -56,7 +56,7 @@ const Signup = () => {
                     type="password"
                     name="password"
                     placeholder="Password"
-                    className="border-2 border-black p-2"
+                    className="border-2 border-black p-2  w-[22vw]"
                     onChange={onChange}
                     value={formData.password}
                 />
@@ -64,7 +64,7 @@ const Signup = () => {
                     type="password"
                     name="password_confirmation"
                     placeholder="Password Confirmation"
-                    className="border-2 border-black p-2"
+                    className="border-2 border-black p-2 w-[22vw]"
                     onChange={onChange}
                     value={formData.password_confirmation}
                 />

@@ -14,7 +14,7 @@ const router = createBrowserRouter([
     element: <DefaultLayout />,   // For logged-in users
     children: [
       {
-        path: "users",    // no need for leading slash inside children
+        path: "users",    
         element: <Users />,
       },
       {

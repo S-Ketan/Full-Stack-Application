@@ -2,7 +2,7 @@ import { Navigate, Outlet } from "react-router-dom";
 import { useStateContext } from "../contexts/ContextProvider";
 const GuestLayout = () => {
     const { token } = useStateContext();
-    console.log("GuestLayout token:", token); // Debugging line
+    // console.log("GuestLayout token:", token); // Debugging line
     if (token) {
         return <Navigate to="/" />;
     }

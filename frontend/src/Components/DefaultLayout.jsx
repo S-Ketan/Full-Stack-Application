@@ -1,17 +1,24 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Navigate, Outlet, Link } from "react-router-dom";
 import { useStateContext } from "../contexts/ContextProvider";
+import axiosClient from "../axios-client";
 
 const DefaultLayout = () => {
-    const { user, token } = useStateContext();
-    const onLogout=(e)=>{
+    const { user, token ,setUser} = useStateContext();
+    const onLogout = (e) => {
         e.preventDefault();
-    }
+    };
 
     if (!token) {
         return <Navigate to="/login" />;
     }
-    console.log("DefaultLayout token:", token); // Debugging line
+    // console.log("DefaultLayout token:", token); // Debugging line
+    useEffect(() => {
+        axiosClient.get("/user").then(( data ) => {
+            setUser(data);
+            
+        });
+    }, []);
     return (
         <div>
             <div className="flex w-full h-full">
@@ -38,8 +45,13 @@ const DefaultLayout = () => {
                         <div className="bg-white w-full h-[15vh] shadow-2xs flex justify-between items-center px-8">
                             <p>Header</p>
                             <div className="flex gap-4 items-center">
-                                <p>{user.name}</p>
-                                <button onClick={onLogout} className="cursor-pointer">Logout</button>
+                                <p>{user ? user.name : ''}</p>
+                                <button
+                                    onClick={onLogout}
+                                    className="cursor-pointer"
+                                >
+                                    Logout
+                                </button>
                             </div>
                         </div>
                     </header>
