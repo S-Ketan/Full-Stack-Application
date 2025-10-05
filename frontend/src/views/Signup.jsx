@@ -9,9 +9,11 @@ const Signup = () => {
         password: "",
         password_confirmation: "",
     });
+    const [errors, setErrors] = useState(null);
     const { setUser, setToken } = useStateContext();
     const onSubmit = (e) => {
         e.preventDefault();
+        setErrors(null);
         axiosClient
             .post("/signup", formData)
             .then((data) => {
@@ -21,7 +23,11 @@ const Signup = () => {
             .catch((err) => {
                 const response = err.response;
                 if (response && response.status === 422) {
-                    console.log(response.data.errors);
+                    if (response.data.errors) {
+                        setErrors(response.data.errors);
+                    } else {
+                        setErrors({ message: [response.data.message] });
+                    }
                 }
             });
         console.log(formData);
@@ -34,6 +40,13 @@ const Signup = () => {
     return (
         <form onSubmit={onSubmit}>
             <h1 className="text-center text-2xl">Signup For Free</h1>
+            {errors && (
+                <div className="bg-red-500 p-3 text-white">
+                    {Object.keys(errors).map((key) => (
+                        <p key={key}>{errors[key][0]}</p>
+                    ))}
+                </div>
+            )}
             <div className="flex flex-col gap-3 mt-4">
                 <input
                     type="text"

@@ -28,7 +28,7 @@ const Login = () => {
                     if (response.data.errors) {
                         setErrors(response.data.errors);
                     } else {
-                        setErrors({ email: [response.data.message] });
+                        setErrors({ message: [response.data.message] });
                     }
                 }
             });

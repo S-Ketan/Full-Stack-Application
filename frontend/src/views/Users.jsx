@@ -26,7 +26,7 @@ const Users = () => {
             .then(({ data }) => {
                 setLoading(false);
                 setUsers(data);
-                console.log(data);
+               
             })
             .catch((err) => {
                 console.log(err);
@@ -56,37 +56,52 @@ const Users = () => {
                             <th className="py-2 px-4 border-b">Actions</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        {users.map((u) => (
-                            <tr
-                                key={u.id}
-                                className="hover:bg-purple-100 transition-colors"
-                            >
-                                <td className="py-2 px-4 border-b">{u.id}</td>
-                                <td className="py-2 px-4 border-b">{u.name}</td>
-                                <td className="py-2 px-4 border-b">
-                                    {u.email}
-                                </td>
-                                <td className="py-2 px-4 border-b">
-                                    {u.created_at}
-                                </td>
-                                <td className="py-2 px-4 border-b flex justify-center gap-4 ">
-                                    <Link
-                                        to={`/users/${u.id}`}
-                                        className="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded font-bold transition-colors"
-                                    >
-                                        Edit
-                                    </Link>
-                                    <button
-                                        onClick={() => handleDelete(u.id)}
-                                        className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded font-bold transition-colors"
-                                    >
-                                        Delete
-                                    </button>
+                    {loading && (
+                        <tbody>
+                            <tr>
+                                <td colSpan={5} className="text-center py-4">
+                                    Loading...
                                 </td>
                             </tr>
-                        ))}
-                    </tbody>
+                        </tbody>
+                    )}
+                    {!loading && (
+                        <tbody>
+                            {users.map((u) => (
+                                <tr
+                                    key={u.id}
+                                    className="hover:bg-purple-100 transition-colors"
+                                >
+                                    <td className="py-2 px-4 border-b">
+                                        {u.id}
+                                    </td>
+                                    <td className="py-2 px-4 border-b">
+                                        {u.name}
+                                    </td>
+                                    <td className="py-2 px-4 border-b">
+                                        {u.email}
+                                    </td>
+                                    <td className="py-2 px-4 border-b">
+                                        {u.created_at}
+                                    </td>
+                                    <td className="py-2 px-4 border-b flex justify-center gap-4 ">
+                                        <Link
+                                            to={`/users/${u.id}`}
+                                            className="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded font-bold transition-colors"
+                                        >
+                                            Edit
+                                        </Link>
+                                        <button
+                                            onClick={() => handleDelete(u.id)}
+                                            className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded font-bold transition-colors"
+                                        >
+                                            Delete
+                                        </button>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    )}
                 </table>
             </div>
         </div>
