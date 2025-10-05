@@ -4,13 +4,13 @@ import { useStateContext } from "../contexts/ContextProvider";
 import axiosClient from "../axios-client";
 
 const DefaultLayout = () => {
-    const { user, token ,setUser, setToken} = useStateContext();
+    const { user, token, notification, setUser, setToken } = useStateContext();
     const onLogout = (e) => {
         e.preventDefault();
-        axiosClient.post('/logout').then(()=>{
+        axiosClient.post("/logout").then(() => {
             setUser({});
             setToken(null);
-        })
+        });
     };
 
     if (!token) {
@@ -18,9 +18,8 @@ const DefaultLayout = () => {
     }
     // console.log("DefaultLayout token:", token); // Debugging line
     useEffect(() => {
-        axiosClient.get("/user").then(( data ) => {
+        axiosClient.get("/user").then((data) => {
             setUser(data);
-            
         });
     }, []);
     return (
@@ -49,7 +48,7 @@ const DefaultLayout = () => {
                         <div className="bg-white w-full h-[15vh] shadow-2xs flex justify-between items-center px-8">
                             <p>Header</p>
                             <div className="flex gap-4 items-center">
-                                <p>{user ? user.name : ''}</p>
+                                <p>{user ? user.name : ""}</p>
                                 <button
                                     onClick={onLogout}
                                     className="cursor-pointer"
@@ -64,6 +63,17 @@ const DefaultLayout = () => {
                     </main>
                 </div>
             </div>
+            {notification && (
+                <div
+                    className={`fixed bottom-4 right-4 ${
+                        notification === "User was successfully deleted"
+                            ? "bg-red-500"
+                            : "bg-green-500"
+                    } text-white px-4 py-2 rounded shadow-lg`}
+                >
+                    {notification}
+                </div>
+            )}
         </div>
     );
 };
